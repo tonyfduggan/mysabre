@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private static final int streamType = AudioManager.STREAM_MUSIC;
     private boolean loaded;
     private float volume;
-    private int soundIdWhoo;
+    private int soundIdChosenSound;
 
     //SENSOR VARIABLES
     private SensorManager senSensorManager;
@@ -38,7 +38,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //SET UP SOUND
+        SoundSetup();
+
+        LoadSoundFile();
+
+        SensorSetup();
+    }
+
+    void SoundSetup() {
         //audioManager to adjust volume
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
         //get current volume index of stream type
@@ -71,11 +78,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 loaded = true;
             }
         });
+    }
 
+    void LoadSoundFile() {
         //load sound file into SoundPool
-        this.soundIdWhoo = this.soundPool.load(this, R.raw.whoo, 1);
+        this.soundIdChosenSound = this.soundPool.load(this, R.raw.whoo, 1);
+    }
 
-        //SET UP SENSORS
+    void SensorSetup() {
         senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         senSensorManager.registerListener(this, senAccelerometer, senSensorManager.SENSOR_DELAY_NORMAL);
@@ -120,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     //play sound
                     float leftVolume = volume;
                     float rightVolume = volume;
-                    int streamId = this.soundPool.play(this.soundIdWhoo, leftVolume, rightVolume, 1, 0, 1f);
+                    int streamId = this.soundPool.play(this.soundIdChosenSound, leftVolume, rightVolume, 1, 0, 1f);
                 }
 
                 last_x = x;
