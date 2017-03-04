@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MySaber</string>
+    <string name="action_settings">Settings</string>
+    <string name="btnRec1">REC</string>
+</resources>
