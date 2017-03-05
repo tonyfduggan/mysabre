@@ -1,10 +1,5 @@
 package hillnerds.me.mysaber;
 
-import android.Manifest;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,9 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -61,23 +53,6 @@ public class MainActivity extends AppCompatActivity {
             stopRecording();
         }
     }
-
-    public String userFile(){
-
-        final String[] accepted = new String[1];
-        final AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
-        View tveiw = getLayoutInflater().inflate(R.layout.getfilename,null);
-        final EditText filestr = (EditText) tveiw.findViewById(R.id.editText);
-        Button btnaccept = (Button) tveiw.findViewById(R.id.button2);
-
-
-        btnaccept.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View tveiw){
-                if (!filestr.getText().toString().isEmpty()){
-                    Toast.makeText(MainActivity.this, "Accepted", Toast.LENGTH_SHORT).show();
-                    accepted[0] = filestr.toString();
-                }
             }
 
         });
@@ -112,21 +87,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void startRecording() {
-        mRecorder = new MediaRecorder();
-        mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        mRecorder.setOutputFile(mFileName);
-        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-        Log.e(LOG_TAG, "recording");
 
         try {
             mRecorder.prepare();
         } catch (IOException e) {
-            Log.e(LOG_TAG, "prepare() failed");
-        }
-
-        mRecorder.start();
     }
 
     private void stopRecording() {
@@ -166,14 +130,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mRecorder != null) {
-            mRecorder.release();
-            mRecorder = null;
-        }
-    }
+
 }
 
 
